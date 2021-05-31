@@ -53,13 +53,17 @@ def get_word(num):
 
 def choose_word():
   num = random.randint(0,9)
-  word = get_word(num).join('_')
-  link = 'https://en.wikipedia.org/wiki/' + word
+  word = get_word(num)
+  while word == None:
+    word = get_word(num)
+  link = 'https://en.wikipedia.org/wiki/' + word.replace(" ", "_")
 
   while valid_link(link) == False:
     num = random.randint(0,9)
-    word = get_word(num).join('_')
-    link = 'https://en.wikipedia.org/wiki/' + word
+    word = get_word(num)
+    while word == None:
+      word = get_word(num)
+    link = 'https://en.wikipedia.org/wiki/' + word.replace(" ", "_")
 
   return word, link
 
@@ -86,11 +90,8 @@ async def on_message(message):
     await message.channel.send(end)
     await message.channel.send(end_link)
     await message.channel.send("$Rules - **To View Rules**")
-    print(get_anime())
-    print(get_famous_person())
-    print(get_medical())
 
-    if msg.startswith('$Rules'):
-      await message.channel.send("Kyle")
+  if msg.startswith('$Rules'):
+    await message.channel.send("Kyle")
 
 client.run(my_secret)
