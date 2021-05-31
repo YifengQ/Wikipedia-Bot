@@ -2,7 +2,7 @@ import discord
 import os
 import requests
 import random
-from replit import db
+import fileinput
 from keep_alive import keep_alive
 from random_word import RandomWords
 my_secret = os.environ['TOKEN']
@@ -10,7 +10,7 @@ r = RandomWords()
 client = discord.Client()
 
 def get_noun():
-  return r.get_random_word(hasDictionaryDef="true", includePartOfSpeech="noun")
+  return r.get_random_word(hasDictionaryDef="true", includePartOfSpeech="noun, verb")
 
 def valid_link(link):
   
@@ -56,5 +56,8 @@ async def on_message(message):
     await message.channel.send('====================================================================================')
     await message.channel.send(end)
     await message.channel.send(end_link)
+    await message.channel.send("$Rules - **To View Rules**")
+    if msg.startswith('$Rules'):
+      await message.channel.send("Kyle")
 
 client.run(my_secret)
