@@ -1,43 +1,48 @@
 import discord
 import os
 import requests
-import json
 import random
 from replit import db
 from keep_alive import keep_alive
-
+from random_word import RandomWords
+my_secret = os.environ['TOKEN']
+r = RandomWords()
 client = discord.Client()
 
-sad_words = ["sad", "depressed", "unhappy", "angry", "miserable", "depressing"]
+def get_noun():
+  return r.get_random_word(hasDictionaryDef="true", includePartOfSpeech="noun")
 
-starter_encouragements = [
-  "Cheer up!",
-  "Hang in there.",
-  "You are a great person / bot!"
-]
-
-if "responding" not in db.keys():
-  db["responding"] = True
-
-def get_quote():
-  response = requests.get("https://zenquotes.io/api/random")
-  json_data = json.loads(response.text)
-  quote = json_data[0]['q'] + " -" + json_data[0]['a']
-  return(quote)
-
-def update_encouragements(encouraging_message):
-  if "encouragements" in db.keys():
-    encouragements = db["encouragements"]
-    encouragements.append(encouraging_message)
-    db["encouragements"] = encouragements
+def valid_link(link):
+  
+  request = requests.get(link)
+  if request.status_code == 200:
+    return True
   else:
-    db["encouragements"] = [encouraging_message]
+    return False
 
-def delete_encouragment(index):
-  encouragements = db["encouragements"]
-  if len(encouragements) > index:
-    del encouragements[index]
-    db["encouragements"] = encouragements
+def choose_word():
+  word = get_noun()
+  while word == None:
+    word = get_noun()
+  link = 'https://en.wikipedia.org/wiki/' + word
+
+  while valid_link(link) == False:
+    word = get_noun()
+    while word == None:
+      word = get_noun()
+    link = 'https://en.wikipedia.org/wiki/' + word
+
+  return word, link
+
+# def print_message(message, start_word, start_link, end_word, end_link):
+
+#     start = '**Start Word: **' + start_word
+#     end = '**End Word: **' + end_word
+#     message.channel.send(start)
+#     message.channel.send(start_link)
+#     message.channel.send('====================================================================================')
+#     message.channel.send(end)
+#     message.channel.send(end_link)
 
 @client.event
 async def on_ready():
@@ -50,46 +55,52 @@ async def on_message(message):
 
   msg = message.content
 
-  if msg.startswith('$inspire'):
-    quote = get_quote()
-    await message.channel.send(quote)
+  if msg.startswith('$Wiki'):
+    start_word, start_link = choose_word()
+    end_word, end_link = choose_word()
+    start = '**Start Word: **' + start_word
+    end = '**End Word: **' + end_word
+    await message.channel.send(start)
+    await message.channel.send(start_link)
+    await message.channel.send('====================================================================================')
+    await message.channel.send(end)
+    await message.channel.send(end_link)
 
-  if db["responding"]:
-    options = starter_encouragements
-    if "encouragements" in db.keys():
-      options = options + db["encouragements"]
+client.run(my_secret)
 
-    if any(word in msg for word in sad_words):
-      await message.channel.send(random.choice(options))
+ # if db["responding"]:
+  #   options = starter_encouragements
+  #   if "encouragements" in db.keys():
+  #     options = options + db["encouragements"]
 
-  if msg.startswith("$new"):
-    encouraging_message = msg.split("$new ",1)[1]
-    update_encouragements(encouraging_message)
-    await message.channel.send("New encouraging message added.")
+  #   if any(word in msg for word in sad_words):
+  #     await message.channel.send(random.choice(options))
 
-  if msg.startswith("$del"):
-    encouragements = []
-    if "encouragements" in db.keys():
-      index = int(msg.split("$del",1)[1])
-      delete_encouragment(index)
-      encouragements = db["encouragements"]
-    await message.channel.send(encouragements)
+  # if msg.startswith("$new"):
+  #   encouraging_message = msg.split("$new ",1)[1]
+  #   update_encouragements(encouraging_message)
+  #   await message.channel.send("New encouraging message added.")
 
-  if msg.startswith("$list"):
-    encouragements = []
-    if "encouragements" in db.keys():
-      encouragements = db["encouragements"]
-    await message.channel.send(encouragements)
+  # if msg.startswith("$del"):
+  #   encouragements = []
+  #   if "encouragements" in db.keys():
+  #     index = int(msg.split("$del",1)[1])
+  #     delete_encouragment(index)
+  #     encouragements = db["encouragements"]
+  #   await message.channel.send(encouragements)
 
-  if msg.startswith("$responding"):
-    value = msg.split("$responding ",1)[1]
+  # if msg.startswith("$list"):
+  #   encouragements = []
+  #   if "encouragements" in db.keys():
+  #     encouragements = db["encouragements"]
+  #   await message.channel.send(encouragements)
 
-    if value.lower() == "true":
-      db["responding"] = True
-      await message.channel.send("Responding is on.")
-    else:
-      db["responding"] = False
-      await message.channel.send("Responding is off.")
+  # if msg.startswith("$responding"):
+  #   value = msg.split("$responding ",1)[1]
 
-keep_alive()
-client.run(os.getenv('TOKEN'))
+  #   if value.lower() == "true":
+  #     db["responding"] = True
+  #     await message.channel.send("Responding is on.")
+  #   else:
+  #     db["responding"] = False
+  #     await message.channel.send("Responding is off.")
