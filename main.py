@@ -3,6 +3,7 @@ import os
 import requests
 import random
 import csv
+import wikipediaapi
 from keep_alive import keep_alive
 from random_word import RandomWords
 my_secret = os.environ['TOKEN']
