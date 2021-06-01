@@ -70,7 +70,7 @@ def choose_word():
 
 @client.event
 async def on_ready():
-  await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='$Wiki Help'))
+  await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name='$WHelp'))
   print('We have logged in as {0.user}'.format(client))
 
 @client.event
@@ -96,7 +96,7 @@ async def on_message(message):
   if msg.startswith('$Rules'):
     await message.channel.send("Kyle")
 
-  if msg.startswith('$Help'):
+  if msg.startswith('$WHelp'):
     await message.channel.send("U Stupid?")
 
 keep_alive()
