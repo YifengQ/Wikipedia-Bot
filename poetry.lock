@@ -232,6 +232,17 @@ watchdog = ["watchdog"]
 
 [[package]]
 category = "main"
+description = "Python Wrapper for Wikipedia"
+name = "wikipedia-api"
+optional = false
+python-versions = "*"
+version = "0.5.4"
+
+[package.dependencies]
+requests = "*"
+
+[[package]]
+category = "main"
 description = "Yet another URL library"
 name = "yarl"
 optional = false
@@ -243,7 +254,7 @@ idna = ">=2.0"
 multidict = ">=4.0"
 
 [metadata]
-content-hash = "9f2cea7be23fd03279153c3a61288f294e78fb2219af50d3337fe1f1197de93c"
+content-hash = "00af2c617cf2870d301c2ddeb003306811d85692597deca4f1dced5108745467"
 python-versions = "^3.8"
 
 [metadata.files]
@@ -461,6 +472,9 @@ typing-extensions = [
 werkzeug = [
     {file = "Werkzeug-2.0.1-py3-none-any.whl", hash = "sha256:6c1ec500dcdba0baa27600f6a22f6333d8b662d22027ff9f6202e3367413caa8"},
     {file = "Werkzeug-2.0.1.tar.gz", hash = "sha256:1de1db30d010ff1af14a009224ec49ab2329ad2cde454c8a708130642d579c42"},
+]
+wikipedia-api = [
+    {file = "Wikipedia-API-0.5.4.tar.gz", hash = "sha256:5173d4db641cdb78d96f2b052df2232bcdc00cf32a424c43402958a40f783992"},
 ]
 yarl = [
     {file = "yarl-1.6.3-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:0355a701b3998dcd832d0dc47cc5dedf3874f966ac7f870e0f3a6788d802d434"},

@@ -11,6 +11,7 @@ discord = "^1.0.1"
 random-word = "^1.0.7"
 replit = "^3.1.0"
 PyYAML = "^5.4.1"
+Wikipedia-API = "0.5.4"
 
 [tool.poetry.dev-dependencies]
 
