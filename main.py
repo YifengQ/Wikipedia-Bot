@@ -96,4 +96,8 @@ async def on_message(message):
   if msg.startswith('$Rules'):
     await message.channel.send("Kyle")
 
+  if msg.startswith('$Help'):
+    await message.channel.send("U Stupid?")
+
+keep_alive()
 client.run(my_secret)
