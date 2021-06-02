@@ -7,6 +7,8 @@ import wikipediaapi
 from keep_alive import keep_alive
 from random_word import RandomWords
 
+
+# Token for Discord Bot in .env
 my_secret = os.environ['TOKEN']
 
 r = RandomWords()
