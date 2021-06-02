@@ -7,7 +7,6 @@ import wikipediaapi
 from keep_alive import keep_alive
 from random_word import RandomWords
 
-
 # Token for Discord Bot in .env
 my_secret = os.environ['TOKEN']
 
@@ -17,6 +16,7 @@ wiki_wiki = wikipediaapi.Wikipedia('en')
 
 client = discord.Client()
 
+# Loads all the Random words from CSV Files
 with open('Data/anime.csv', newline='') as f:
     reader = csv.reader(f)
     anime = list(reader)
@@ -29,7 +29,8 @@ with open('Data/medical.csv', newline='') as f:
     reader = csv.reader(f)
     medical = list(reader)
 
-def get_noun():
+
+def get_rand():
   return r.get_random_word(hasDictionaryDef="true", includePartOfSpeech="noun, verb")
 
 def get_anime():
@@ -51,7 +52,7 @@ def valid_link(link):
 
 def get_word(num):
   if num < 4:
-    return get_noun()
+    return get_rand()
   elif num < 7:
     return get_anime()
   elif num < 9:
