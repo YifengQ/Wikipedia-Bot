@@ -29,19 +29,23 @@ with open('Data/medical.csv', newline='') as f:
     reader = csv.reader(f)
     medical = list(reader)
 
-
+# Package That contains Random Words
 def get_rand():
   return r.get_random_word(hasDictionaryDef="true", includePartOfSpeech="noun, verb")
 
+# Gets and random word from anime list
 def get_anime():
   return random.choice(anime)[1]
 
+# Gets and random word from famous people list
 def get_famous_person():
   return random.choice(famous_people)[0]
 
+# Gets and random word from medical list
 def get_medical():
   return random.choice(medical)[0]
 
+#Checks if a link is valid
 def valid_link(link):
   
   request = requests.get(link)
@@ -50,6 +54,7 @@ def valid_link(link):
   else:
     return False
 
+# Determines the odds of choosing a category
 def get_word(num):
   if num < 4:
     return get_rand()
@@ -60,6 +65,8 @@ def get_word(num):
   else:
     return get_medical()
 
+# gets the random word and check if link is valid
+# if not it will keep getting new words til valid
 def choose_word():
   num = random.randint(0,9)
   word = get_word(num)
