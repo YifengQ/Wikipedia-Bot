@@ -6,8 +6,13 @@ import csv
 import wikipediaapi
 from keep_alive import keep_alive
 from random_word import RandomWords
+
 my_secret = os.environ['TOKEN']
+
 r = RandomWords()
+
+wiki_wiki = wikipediaapi.Wikipedia('en')
+
 client = discord.Client()
 
 with open('Data/anime.csv', newline='') as f:
@@ -57,16 +62,16 @@ def choose_word():
   word = get_word(num)
   while word == None:
     word = get_word(num)
-  link = 'https://en.wikipedia.org/wiki/' + word.replace(" ", "_")
-
-  while valid_link(link) == False:
+  page_py = wiki_wiki.page(word)
+  
+  while page_py.exists() == False:
     num = random.randint(0,9)
     word = get_word(num)
     while word == None:
       word = get_word(num)
-    link = 'https://en.wikipedia.org/wiki/' + word.replace(" ", "_")
+    page_py = wiki_wiki.page(word)
 
-  return word, link
+  return word, page_py.fullurl
 
 
 @client.event
