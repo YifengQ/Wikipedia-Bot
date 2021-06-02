@@ -50,7 +50,7 @@ def valid_link(link):
 def get_word(num):
   if num < 4:
     return get_noun()
-  elif num < 7:
+  elif num < 8:
     return get_anime()
   elif num < 9:
     return get_famous_person()
