@@ -69,20 +69,26 @@ def get_word(num):
 # if not it will keep getting new words til valid
 def choose_word():
   num = random.randint(0,9)
+  enough_data = False
   word = get_word(num)
   while word == None:
     word = get_word(num)
   page_py = wiki_wiki.page(word)
-  
-  while page_py.exists() == False:
+  enough_data = get_text(page_py)
+
+  while page_py.exists() == False and enough_data == False:
     num = random.randint(0,9)
     word = get_word(num)
     while word == None:
       word = get_word(num)
     page_py = wiki_wiki.page(word)
+    enough_data = get_text(page_py)
 
   return word, page_py.fullurl
 
+def get_text(page_py):
+  print(len(page_py.text))
+  return len(page_py.text) > 25000
 
 @client.event
 async def on_ready():
