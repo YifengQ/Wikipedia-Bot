@@ -124,5 +124,10 @@ async def on_message(message):
   if msg.startswith('$WMedical'):
     await message.channel.send("Not Yet Brother")
 
+  if msg.startswith('$Random'):
+    msg = msg.split()
+    print(msg)
+    await message.channel.send('msg')
+
 keep_alive()
 client.run(my_secret)
