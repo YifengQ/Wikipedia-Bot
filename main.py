@@ -112,9 +112,14 @@ async def on_message(message):
     await message.channel.send("U Stupid?")
 
   if msg.startswith('$Random'):
-    msg = msg.split()
-    print(msg)
-    await message.channel.send('msg')
+    msg = msg.split(',')
+    choices = [msg[0].split()[1]]
+    
+    if len(msg) > 1:
+      choices += msg[1:]
+    print(choices)
+    choice = start = '**Choice: **' + str(random.choice(choices)
+    await message.channel.send(choice)
 
 keep_alive()
 client.run(my_secret)
