@@ -118,7 +118,7 @@ async def on_message(message):
     if len(msg) > 1:
         choices += msg[1:]
         
-    choice = start = '**Choice: **' + str(random.choice(choices))
+    choice = start = '**Choice :) **' + str(random.choice(choices))
     await message.channel.send(choice)
 
 keep_alive()
