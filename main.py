@@ -78,7 +78,7 @@ def choose_word():
 
 def get_text(page_py):
   print(len(page_py.text))
-  return len(page_py.text) > 25000
+  return len(page_py.text) > 50000
 
 @client.event
 async def on_ready():
