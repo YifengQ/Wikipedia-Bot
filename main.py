@@ -121,8 +121,11 @@ async def on_message(message):
     choice = start = '**Choice :) **' + str(random.choice(choices))
     await message.channel.send(choice)
 
-    if msg.startswith('$Rope'):
-      await message.channel.send("same brother")
+  if msg.startswith('$Rope'):
+    await message.channel.send("same brother")
+
+  if msg.startswith('$RIP'):
+    await message.channel.send("same brother")
 
 keep_alive()
 client.run(my_secret)
