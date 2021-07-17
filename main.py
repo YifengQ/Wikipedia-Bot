@@ -126,6 +126,10 @@ async def on_message(message):
 
   if msg.startswith('$RIP'):
     await message.channel.send("same brother")
+  
+  if msg.startswith('$Valorant'):
+  await message.channel.send("@OrangeChicken#1754 Val?")
+
 
 keep_alive()
 client.run(my_secret)
