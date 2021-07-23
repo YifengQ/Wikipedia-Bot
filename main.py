@@ -130,6 +130,7 @@ async def on_message(message):
   if msg.startswith('$Valorant'):
     await message.channel.send("@OrangeChicken#1754 Val?")
     await message.channel.send("@ps Val?")
+    await message.channel.send("Cyrus Sux")
 
 
 keep_alive()
