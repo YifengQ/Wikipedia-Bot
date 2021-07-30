@@ -87,10 +87,10 @@ async def on_ready():
 
 @client.event
 async def on_voice_state_update(member, before, after):
-    await client.send_message("")
+    await client.send_message("  ")
     if before.voice_channel is None and after.voice_channel is not None:
       for channel in before.server.channels:
-          if channel.name == 'general':
+          if channel.name == '///':
               await client.send_message(channel, "Howdy")
 
 @client.event
